@@ -57,15 +57,14 @@ public class CompletableFutureApiJourney {
 
 
         final CompletableFuture<Product> future = database.scheduleGettingProductById(ProductIds.IPHONE_11_ID);
-
-        //todo remove
-        final CompletableFuture<EmailSendingResult> resultFuture = future.thenApply(emailSender::sendEmailAboutProduct);
+//        todo - insert code here
 
         sleepForTwoSeconds();
 
 //        run assertions on resulting future - 'assertThat(resultFuture).<something>'
 //        check whether future is completed and has proper value of email sending result!
-        assertThat(resultFuture).isCompletedWithValue(new EmailSendingResult(true));
+
+//        todo - insert code here
 
 //        Did you use version thenX or thenXAsync? Why? What is the difference?
     }
@@ -81,13 +80,12 @@ public class CompletableFutureApiJourney {
         final CompletableFuture<Product> future2 = database.scheduleGettingProductById(ProductIds.IPHONE_12_ID);
         final CompletableFuture<Product> future3 = database.scheduleGettingProductById(ProductIds.GALAXY_S8_ID);
 
-        //todo remove
-        final CompletableFuture<Void> future = CompletableFuture.allOf(future1, future2, future3);
+//        todo - insert code here
 
         sleepForTwoSeconds();
 
         // assert the result future and see whether it's complete!
-        assertThat(future).isCompleted();
+//        assertThat(future).isCompleted();
         // How about the completable future results? Are there more options to do that? Which one suits you?
     }
 
@@ -103,8 +101,7 @@ public class CompletableFutureApiJourney {
 //        to a proper type. This is an equivalent to flatMap in java stream API. Try to find it so that an operation
 //        like this: future.xxx(p -> orderingService.order(p, 10)) would result in CompletableFuture<OrderingResult>.
 
-        //todo remove
-        final CompletableFuture<OrderingResult> orderingResultCompletableFuture = future.thenCompose(p -> orderingService.order(p, 10));
+//        todo - insert code here
     }
 
     @Test
@@ -119,8 +116,7 @@ public class CompletableFutureApiJourney {
         final CompletableFuture<Product> future1 = database.scheduleGettingProductById(ProductIds.IPHONE_11_ID);
         final CompletableFuture<Product> future2 = database.scheduleGettingProductById(ProductIds.IPHONE_12_ID);
 
-        //todo remove
-        final CompletableFuture<List<Product>> future = future1.thenCombine(future2, List::of);
+//        todo - insert code here
     }
 
     @Test
@@ -132,23 +128,8 @@ public class CompletableFutureApiJourney {
 //        solution and see whether you can come up with different order. (There is sync and async api for Warehouse).
 
         var list = List.of(ProductIds.IPHONE_11_ID, ProductIds.IPHONE_12_ID, ProductIds.GALAXY_S8_ID);
-        //todo remove
-        //sync warehouse
-        list.stream()
-                .map(database::scheduleGettingProductById)
-                .map(f -> f.thenApply(p -> {
-                    final ProductCounts productCounts = warehouse.getProductCountsForId(p.getId());
-                    return new ProductReport(p, productCounts.getCount());
-                }))
-                .collect(Collectors.toList());
 
-
-        //async warehouse
-        list.stream()
-                .map(id -> database.scheduleGettingProductById(id).thenCombine(
-                        warehouse.scheduleGettingProductCountsForId(id),
-                        (p, pc) -> new ProductReport(p, pc.getCount())))
-                .collect(Collectors.toList());
+//        todo - insert code here
     }
 
     private void sleepForTwoSeconds() {
